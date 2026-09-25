@@ -1,6 +1,5 @@
 package Jav_physics.Rectangle;
-import com.raylib.Raylib.Vector2;
-
+import Jav_physics.Utils.Force;
 import resources.console;
 
 public class Static_Rect extends Rect {
@@ -8,23 +7,25 @@ public class Static_Rect extends Rect {
         super(width, height, x, y);
     }
 
+
+
     @Override
     public void impulseip(float dx, float dy) {
         errorimpulse();
     }
 
     @Override
-    public void impulseip(Vector2 d) {
+    public void impulseip(Force d) {
         errorimpulse();
     }
 
     @Override
     public void accelerateip(float dx, float dy){
         erroraccelerate();
-        }
+    }
 
     @Override
-    public void accelerateip(Vector2 d) {
+    public void accelerateip(Force d) {
         erroraccelerate();
     }
 

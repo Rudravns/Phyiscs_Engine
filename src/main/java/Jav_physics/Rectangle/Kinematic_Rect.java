@@ -10,5 +10,17 @@ public class Kinematic_Rect extends Rect{
         this.mass = mass;
     }
 
-    
+    public void collide(Rect other) {
+        // Y collision
+        if (overlapping(other)) {
+            pos.y(-vel.y());
+            vel.y(0f);
+        }
+
+        // X collision
+        if (overlapping(other)) {
+            pos.x(-vel.x());
+            vel.x(0f);
+        }
+    }
 }

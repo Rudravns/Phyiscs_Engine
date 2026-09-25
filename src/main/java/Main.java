@@ -3,6 +3,11 @@
  *  Windows - ctrl + k, s
  */
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static com.raylib.Colors.BLUE;
 import static com.raylib.Colors.DARKGRAY;
 import static com.raylib.Colors.GREEN;
@@ -46,12 +51,18 @@ public class Main {
     static Dynamic_Rect drect = new Dynamic_Rect(40, 20, 100, 100);
     static Kinematic_Rect krect = new Kinematic_Rect(40, 20, 200, 100, 1.0f);
     static Static_Rect srect = new Static_Rect(1000, 50, 0, 800);
+    static Map<String, List<Object>> rect_list = new HashMap();
+    
 
     public static void main(String[] args) {
+        setupRects();
+        drect.angle(56);
         drect.moveip(5, 0);
         drect.accelerateip(0, 9.8f);
         drect.impulseip(2, 0);
-        double friction = combine.calulate_friction(drect.mu(), 10);
+        double friction_static = combine.calulate_friction(drect.mu_s(), 10);
+        double friction_kinetic = combine.calulate_friction(drect.mu_k(), 10);
+        Object[] friction = null;
         libraryStatus = String.format(
             "Jav_physics loaded: Dynamic_Rect, Kinematic_Rect, Static_Rect | friction %.1f",
             friction);
@@ -80,8 +91,40 @@ public class Main {
         CloseWindow();
     }
 
+    private static void setupRects() {
+        rect_list.put("Static", setupStatic());
+        rect_list.put("Kinematic", setupKinematic());
+        rect_list.put("Dynamic", setupDynamic());
+    }
+
+    private static List<Object> setupStatic() {
+        List<Object> list = new ArrayList<>();
+
+        list.add(srect);
+
+        return list;
+    }
+
+    private static List<Object> setupKinematic() {
+        List<Object> list = new ArrayList<>();
+
+        list.add(srect);
+
+        return list;
+    }
+
+    private static List<Object> setupDynamic() {
+        List<Object> list = new ArrayList<>();
+
+        list.add(srect);
+
+        return list;
+    }
+
     private static void update() {
-        drect.accelerateip(1.0f, 0.0f);
+        srect.step(rect_list);
+        drect.step(rect_list);
+        krect.step(rect_list);
     }
 
     public static void draw() {
