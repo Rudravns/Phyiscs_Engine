@@ -1,5 +1,4 @@
-package Utils
+package Jav_physics.Utils;
 
-public class Force{
-    
+public class Force {
 }
