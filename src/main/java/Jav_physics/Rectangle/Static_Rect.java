@@ -11,8 +11,9 @@ public class Static_Rect extends Rect {
 
     public Static_Rect(float x, float y, float width, float height) {
         super(x, y, width, height);
-        registerRect(this);
         super.type = Jav_physics.Rect_types.Static;
+        recalculateMassAndInertia();
+        registerRect(this);
     }
 
     @Override
@@ -37,6 +38,26 @@ public class Static_Rect extends Rect {
     @Override
     public void accelerateip(Force d) {
         errorAccelerate();
+    }
+
+    @Override
+    public void applyForce(float fx, float fy) {
+        errorAccelerate();
+    }
+
+    @Override
+    public void applyForce(Force f) {
+        errorAccelerate();
+    }
+
+    @Override
+    public void applyTorque(float t) {
+        errorAccelerate();
+    }
+
+    @Override
+    public void applyAngularImpulse(float impulse) {
+        errorImpulse();
     }
 
     private void errorImpulse() {
