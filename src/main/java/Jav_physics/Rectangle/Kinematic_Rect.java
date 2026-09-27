@@ -1,26 +1,43 @@
 package Jav_physics.Rectangle;
 
-public class Kinematic_Rect extends Rect{
+import java.util.List;
+import java.util.Map;
+
+import Jav_physics.Utils.Force;
+import resources.console;
+import Jav_physics.Jav_physics;
+
+public class Kinematic_Rect extends Rect {
 
     private float mass;
 
-
-    public Kinematic_Rect(int width, int height, int x, int y, float mass){
-        super(width, height, x, y);
+    public Kinematic_Rect(float x, float y, float width, float height, float mass) {
+        super(x, y, width, height);
         this.mass = mass;
+        registerRect(this);
+        super.type = Jav_physics.Rect_types.Kinematic;
     }
 
-    public void collide(Rect other) {
-        // Y collision
-        if (overlapping(other)) {
-            pos.y(-vel.y());
-            vel.y(0f);
-        }
+    @Override
+    public void step(Map<String, List<Object>> rect_list) {
+        pos.x(pos.x() + vel.x());
+        pos.y(pos.y() + vel.y());
+    }
 
-        // X collision
-        if (overlapping(other)) {
-            pos.x(-vel.x());
-            vel.x(0f);
-        }
+    @Override
+    public void accelerateip(float dx, float dy) {
+        errorAccelerate();
+    }
+
+    @Override
+    public void accelerateip(Force d) {
+        errorAccelerate();
+    }
+
+    public float mass() { return mass; }
+    public void mass(float m) { this.mass = m; }
+
+    private void errorAccelerate() {
+        System.out.println(console.RED + "Kinematic rect cannot be accelerated:" + console.YELLOW + " use impulseip() to set velocity directly." + console.RESET);
     }
 }

@@ -1,39 +1,49 @@
 package Jav_physics.Rectangle;
+
+import java.util.List;
+import java.util.Map;
+
+import Jav_physics.Jav_physics;
 import Jav_physics.Utils.Force;
 import resources.console;
 
 public class Static_Rect extends Rect {
-    public Static_Rect(int width, int height, int x, int y){
-        super(width, height, x, y);
+
+    public Static_Rect(float x, float y, float width, float height) {
+        super(x, y, width, height);
+        registerRect(this);
+        super.type = Jav_physics.Rect_types.Static;
     }
 
-
+    @Override
+    public void step(Map<String, List<Object>> rect_list) {
+    }
 
     @Override
     public void impulseip(float dx, float dy) {
-        errorimpulse();
+        errorImpulse();
     }
 
     @Override
     public void impulseip(Force d) {
-        errorimpulse();
+        errorImpulse();
     }
 
     @Override
-    public void accelerateip(float dx, float dy){
-        erroraccelerate();
+    public void accelerateip(float dx, float dy) {
+        errorAccelerate();
     }
 
     @Override
     public void accelerateip(Force d) {
-        erroraccelerate();
+        errorAccelerate();
     }
 
-    private void errorimpulse() {
-        System.out.println(console.RED + "Static rect cannot access velocity:" + console.YELLOW + " change rect to Kinematic or Dynamic" + console.RESET);
+    private void errorImpulse() {
+        System.out.println(console.RED + "Static rect cannot have velocity applied:" + console.YELLOW + " change rect type to Kinematic or Dynamic." + console.RESET);
     }
 
-    private void erroraccelerate() {
-        System.out.println(console.RED + "Static rect cannot access acceleration:" + console.YELLOW + " change rect to Kinematic or Dynamic" + console.RESET);
+    private void errorAccelerate() {
+        System.out.println(console.RED + "Static rect cannot be accelerated:" + console.YELLOW + " change rect type to Kinematic or Dynamic." + console.RESET);
     }
 }
