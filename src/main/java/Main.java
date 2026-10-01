@@ -1,45 +1,11 @@
 /*
 $env:JAVA_HOME = 'C:\Users\moghadaszadeh8593\.jdks\openjdk-26.0.2'; $env:Path = "$env:JAVA_HOME\bin;$env:Path"; .\gradlew.bat run
+
+./gradlew run
 */
-import static com.raylib.Colors.BLUE;
-import static com.raylib.Colors.DARKGRAY;
-import static com.raylib.Colors.GREEN;
-import static com.raylib.Colors.LIGHTGRAY;
-import static com.raylib.Colors.RAYWHITE;
-import static com.raylib.Raylib.BeginDrawing;
-import static com.raylib.Raylib.BeginMode2D;
+import static com.raylib.Colors.*;
 import com.raylib.Raylib.Camera2D;
-import static com.raylib.Raylib.ClearBackground;
-import static com.raylib.Raylib.CloseWindow;
-import static com.raylib.Raylib.DrawText;
-import static com.raylib.Raylib.EndDrawing;
-import static com.raylib.Raylib.EndMode2D;
-import static com.raylib.Raylib.FLAG_WINDOW_RESIZABLE;
-import static com.raylib.Raylib.GetMousePosition;
-import static com.raylib.Raylib.GetScreenHeight;
-import static com.raylib.Raylib.GetScreenWidth;
-import static com.raylib.Raylib.InitWindow;
-import static com.raylib.Raylib.IsKeyDown;
-import static com.raylib.Raylib.IsKeyPressed;
-import static com.raylib.Raylib.IsMouseButtonDown;
-import static com.raylib.Raylib.KEY_A;
-import static com.raylib.Raylib.KEY_D;
-import static com.raylib.Raylib.KEY_E;
-import static com.raylib.Raylib.KEY_F11;
-import static com.raylib.Raylib.KEY_LEFT;
-import static com.raylib.Raylib.KEY_P;
-import static com.raylib.Raylib.KEY_Q;
-import static com.raylib.Raylib.KEY_R;
-import static com.raylib.Raylib.KEY_RIGHT;
-import static com.raylib.Raylib.KEY_S;
-import static com.raylib.Raylib.KEY_SPACE;
-import static com.raylib.Raylib.KEY_W;
-import static com.raylib.Raylib.MOUSE_BUTTON_LEFT;
-import static com.raylib.Raylib.MeasureText;
-import static com.raylib.Raylib.SetConfigFlags;
-import static com.raylib.Raylib.SetTargetFPS;
-import static com.raylib.Raylib.ToggleFullscreen;
-import static com.raylib.Raylib.WindowShouldClose;
+import static com.raylib.Raylib.*;
 
 import Jav_physics.Jav_physics;
 import Jav_physics.Rectangle.Dynamic_Rect;
@@ -200,5 +166,6 @@ public class Main {
         DrawText(message, mainTextX, mainTextY, mainFontSize, DARKGRAY);
         DrawText(subtext, subTextX, subTextY, subFontSize, LIGHTGRAY);
         DrawText(librarySubtext, libraryTextX, libraryTextY, subFontSize, DARKGRAY);
+        DrawFPS(10, 10);
     }
 }

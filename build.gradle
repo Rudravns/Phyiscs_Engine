@@ -26,6 +26,12 @@ application {
     mainClass = 'Main'
 }
 
+tasks.named('run', JavaExec) {
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('mac')) {
+        jvmArgs '-XstartOnFirstThread', '--enable-native-access=ALL-UNNAMED'
+    }
+}
+
 java {
     withSourcesJar()
 }

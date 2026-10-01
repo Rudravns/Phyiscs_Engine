@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Collections;
 
-import static com.raylib.Colors.DARKGRAY;
-import static com.raylib.Colors.RED;
-import static com.raylib.Raylib.DrawText;
+import static com.raylib.Colors.*;
+import static com.raylib.Raylib.*;
 
 import com.raylib.Raylib;
-import com.raylib.Raylib.Vector2;
 
 import Jav_physics.Utils.Force;
 import Jav_physics.Jav_physics;
@@ -37,6 +35,7 @@ public class Rect extends Jav_physics {
     protected boolean fixedRotation = false;  // Lock rotation if desired
     protected Vector2 center_of_gravity; // Local offset (w/2, h/2) used by DrawRectanglePro
     protected Jav_physics.Rect_types type = Jav_physics.Rect_types.Dynamic;
+    public Object debug; // For debugging purposes, can hold any data type
     
     public Rect(float x, float y, float width, float height) {
         this(x, y, width, height, 1.0f);
@@ -216,24 +215,9 @@ public class Rect extends Jav_physics {
             float deltaOmegaRad = impulse * invInertia;
             this.angularVelocity += (float) Math.toDegrees(deltaOmegaRad);
             if (Math.abs(this.angularVelocity) <= 0.2f) {
-                this.angularVelocity = 0f;
-                this.angularAcceleration = 0f;
-                this.rot = findNearestStraight(this.rot);
+                
             }
         }
-    }
-
-    private int findNearestStraight(float rot) {
-        float[] straightAngles = {0f, 90f, 180f, 270f};
-        float[] diffs = new float[4];
-        for (int i = 0; i < straightAngles.length; i++) {
-            float diff = Math.abs(rot - straightAngles[i]);
-            diffs[i] = Math.min(diff, 360f - diff);
-        }
-
-        return (int) Collections.min(
-            List.of(0, 1, 2, 3), 
-            (i, j) -> Float.compare(diffs[i], diffs[j])).floatValue();
     }
 
     public void applyForceAtPoint(float fx, float fy, float px, float py) {

@@ -4,13 +4,36 @@ A small Java physics library built on Jaylib. The source remains in this project
 
 ## Build and run
 
-Set `JAVA_HOME` to JDK 26, then run:
+Install JDK 26 and check that `java -version` reports version 26.
+
+On macOS, run the demo from a terminal in a logged-in desktop session:
+
+```sh
+cd /path/to/Phyiscs_Engine
+./gradlew run
+```
+
+Jaylib includes native libraries for both Apple Silicon and Intel Macs. The demo
+opens a graphics window, so it cannot run in a headless or SSH-only session.
+The Gradle run task supplies the macOS JVM options needed by the native graphics
+library automatically.
+
+On Windows, run the equivalent Gradle wrapper command in PowerShell:
 
 ```powershell
 .\gradlew.bat run
 ```
 
 ## Build the library
+
+On macOS:
+
+```sh
+./gradlew build
+./gradlew publishToMavenLocal
+```
+
+On Windows:
 
 ```powershell
 .\gradlew.bat build
