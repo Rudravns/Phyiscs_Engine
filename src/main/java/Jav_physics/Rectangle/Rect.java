@@ -2,6 +2,7 @@ package Jav_physics.Rectangle;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
 
 import static com.raylib.Colors.DARKGRAY;
 import static com.raylib.Colors.RED;
@@ -214,7 +215,25 @@ public class Rect extends Jav_physics {
         if (!fixedRotation && invInertia > 0f) {
             float deltaOmegaRad = impulse * invInertia;
             this.angularVelocity += (float) Math.toDegrees(deltaOmegaRad);
+            if (Math.abs(this.angularVelocity) <= 0.2f) {
+                this.angularVelocity = 0f;
+                this.angularAcceleration = 0f;
+                this.rot = findNearestStraight(this.rot);
+            }
         }
+    }
+
+    private int findNearestStraight(float rot) {
+        float[] straightAngles = {0f, 90f, 180f, 270f};
+        float[] diffs = new float[4];
+        for (int i = 0; i < straightAngles.length; i++) {
+            float diff = Math.abs(rot - straightAngles[i]);
+            diffs[i] = Math.min(diff, 360f - diff);
+        }
+
+        return (int) Collections.min(
+            List.of(0, 1, 2, 3), 
+            (i, j) -> Float.compare(diffs[i], diffs[j])).floatValue();
     }
 
     public void applyForceAtPoint(float fx, float fy, float px, float py) {
